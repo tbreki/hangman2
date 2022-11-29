@@ -1,11 +1,8 @@
-import 'dart:js';
+import 'package:flutter/material.dart';
 
-return MaterialApp(
-title: 'SnackBar Demo',
-home: Scaffold(
-appBar: AppBar(
-title: const Text('SnackBar Demo'),
-),
-body: const SnackBarPage(),
-),
-);
+RunHangman() {
+  runApp(MaterialApp(
+      home: Scaffold(
+    backgroundColor: Colors.orangeAccent,
+  )));
+}
