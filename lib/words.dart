@@ -1,5 +1,5 @@
 words() {
-  List<String> ord = ["vanilla", "chocolate", "strawberry", "caramel"];
-
-  return String;
+  var list = ["vanilla", "chocolate", "strawberry", "caramel"];
+  var randomItem = (list..shuffle()).first;
+  print(randomItem);
 }
