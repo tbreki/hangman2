@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hangman/snackbar.dart';
+import 'package:hangman/words.dart';
 
 void main() {
   runApp(MaterialApp(

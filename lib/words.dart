@@ -1,5 +1,5 @@
 words() {
   var list = ["vanilla", "chocolate", "strawberry", "caramel"];
   var randomItem = (list..shuffle()).first;
-  print(randomItem);
+  return randomItem;
 }
