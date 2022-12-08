@@ -1,5 +1,9 @@
 words() {
   var list = ["vanilla", "chocolate", "strawberry", "caramel", "banana"];
   var randomItem = (list..shuffle()).first;
+
   return randomItem;
+}
+List<String> wordsGuessed = [""];
+
 }
