@@ -4,6 +4,3 @@ words() {
 
   return randomItem;
 }
-List<String> wordsGuessed = [""];
-
-}
