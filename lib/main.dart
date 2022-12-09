@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hangman/snackbar.dart';
 import 'package:hangman/words.dart';
-import 'dart:async';
-import 'dart:html';
-
-class HangmanGame {
-  static const int hanged = 6
-}
-
 
 void main() {
   runApp(MaterialApp(
