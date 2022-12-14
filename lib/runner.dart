@@ -20,18 +20,22 @@ class _RunnerState extends State<Runner> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [],
-    );
-
-    Container(
-      child: Center(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(30.0),
           child: Text(
-        words(),
-        style: TextStyle(
-          fontSize: 50,
-          color: Colors.black54,
+            words(),
+            style: TextStyle(
+              fontSize: 50,
+              color: Colors.black54,
+            ),
+          ),
         ),
-      )),
+        Image.asset("images/hangman1.png"),
+        Container(
+          child: Center(),
+        )
+      ],
     );
   }
 }
