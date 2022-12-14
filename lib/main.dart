@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hangman/snackbar.dart';
+import 'package:hangman/runner.dart.dart';
 import 'package:hangman/words.dart';
 
 void main() {
