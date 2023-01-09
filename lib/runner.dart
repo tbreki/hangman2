@@ -9,8 +9,6 @@ RunHangman() {
 }
 
 class HangmanGame {
-  static const int hanged = 7;
-
   List<String> wordlist = [
     "vanilla",
     "chocolate",
@@ -113,9 +111,14 @@ class Runner extends StatefulWidget {
 class _RunnerState extends State<Runner> {
   get wordForDisplay => " ";
 
-  get wrongGuesses => " ";
+  get wrongGuesses => 1;
 
   String? get usedLetters => " ";
+
+  num hanged() {
+    num hanged = 1 + wrongGuesses;
+    return hanged;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +132,7 @@ class _RunnerState extends State<Runner> {
                 color: Colors.black54,
               )),
         ),
-        Image.asset("images/hangman$wrongGuesses.png"),
+        Image.asset("images/hangman$hanged().png"),
         Container(
           child: Center(),
         ),
