@@ -111,11 +111,11 @@ class Runner extends StatefulWidget {
 }
 
 class _RunnerState extends State<Runner> {
-  get wordForDisplay => null;
+  get wordForDisplay => " ";
 
-  get wrongGuesses => null;
+  get wrongGuesses => " ";
 
-  String? get usedLetters => null;
+  String? get usedLetters => " ";
 
   @override
   Widget build(BuildContext context) {
