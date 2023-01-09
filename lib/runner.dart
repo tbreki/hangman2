@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:hangman/logic.dart';
+import 'package:hangman/words.dart';
 
-RunHangman() {
-  runApp(MaterialApp(
+void main() {
+  runApp(const MaterialApp(
       home: Scaffold(
     body: Runner(),
   )));
@@ -19,7 +21,8 @@ class HangmanGame {
 
   List<String> usedLetters = [];
   List<String> _wordToGuess = [" "];
-  int _wrongGuesses = 0;
+
+  int wrongGuesses = 1;
 
   StreamController<Null> _onWin = new StreamController<Null>.broadcast();
   Stream<Null> get onWin => _onWin.stream;
@@ -44,10 +47,10 @@ class HangmanGame {
     wordlist.shuffle();
 
     // break the first word from the shuffled list into a list of letters
-    _wordToGuess = wordlist.first.split('');
+    _wordToGuess = wordlist.first.split('_');
 
     // reset the wrong guess count
-    _wrongGuesses = 0;
+    var wrongGuesses = 1;
 
     // clear the set of guessed letters
     usedLetters.clear();
@@ -72,9 +75,9 @@ class HangmanGame {
       _onChange.add(wordForDisplay);
 
       //else {
-      _wrongGuesses++;
+      wrongGuesses++;
 
-      _onWrong.add(_wrongGuesses);
+      _onWrong.add(wrongGuesses);
     }
 
     //if (_wrongGuesses == hanged) {
@@ -82,7 +85,6 @@ class HangmanGame {
     //  _onLose.add(null);
   }
 
-  int get wrongGuesses => _wrongGuesses;
   List<String> get wordToGuess => _wordToGuess;
   String get fullWord => wordToGuess.join();
 
@@ -109,16 +111,17 @@ class Runner extends StatefulWidget {
 }
 
 class _RunnerState extends State<Runner> {
-  get wordForDisplay => " ";
-
-  get wrongGuesses => 1;
+  get wordForDisplay => "_";
 
   String? get usedLetters => " ";
 
-  num hanged() {
-    num hanged = 1 + wrongGuesses;
-    return hanged;
-  }
+  get wrongGuesses => 1;
+
+  get children => null;
+
+  get keyboardType => null;
+
+  get child => null;
 
   @override
   Widget build(BuildContext context) {
@@ -132,13 +135,13 @@ class _RunnerState extends State<Runner> {
                 color: Colors.black54,
               )),
         ),
-        Image.asset("images/hangman$hanged().png"),
-        Container(
-          child: Center(),
-        ),
-        // todo input keybord to input String!
-        Text(usedLetters!),
-      ],
-    );
+        Image.asset("images/hangman$wrongGuesses.png"),
+        Container(keys(),
+})
+            // todo input keybord to input String!
+  )]}},
+            );
+
+
   }
 }

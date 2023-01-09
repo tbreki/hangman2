@@ -2,10 +2,18 @@ import 'package:hangman/words.dart';
 import 'dart:core';
 import 'dart:async';
 
-class HangmanGame {
-  static const int hanged = 7;
+int hanGd() {
+  int wrongGuesses = 0;
+  int hanged = 1;
 
-  final Set<String> lettersGuessed = <String>{};
+  int sum = wrongGuesses + hanged;
+
+  return sum;
 }
+//class HangmanGame {
+//static const int hanged = 7;
 
-void wordToShow() {}
+// final Set<String> lettersGuessed = <String>{};
+//}
+
+//void wordToShow() {}
