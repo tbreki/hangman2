@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hangman/runner.dart';
 import 'package:hangman/words.dart';
 
-void main() {
+/*void main() {
   runApp(MaterialApp(
       home: Scaffold(
           floatingActionButton: FloatingActionButton.extended(
@@ -25,4 +25,4 @@ void main() {
               ),
             )),
           ))));
-}
+}*/
