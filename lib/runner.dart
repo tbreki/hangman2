@@ -45,7 +45,12 @@ class _RunnerState extends State<Runner> {
       ),
       Image.asset("images/hangman$wrongGuesses.png"),
       Container(
-        String inputText = stdin.readLineSync(),
+        child: TextFormField(
+          decoration: const InputDecoration(
+            border: UnderlineInputBorder(),
+            labelText: 'Enter Letter',
+          ),
+        ),
       ),
       // todo input keybord to input String!
     ]);
