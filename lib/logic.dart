@@ -12,7 +12,7 @@ import 'dart:async';
 //}
 class HangmanGame {
   List<String> usedLetters = [""];
-  List<String> _wordToGuess = [" "];
+  List<String> wordToGuess = [" "];
 
   int wrongGuesses = 1;
 
@@ -41,7 +41,7 @@ class HangmanGame {
     wordlist.shuffle();
 
     // break the first word from the shuffled list into a list of letters
-    _wordToGuess = wordlist.first.split('_');
+    wordToGuess = wordlist.first.split('_');
 
     // reset the wrong guess count
 
@@ -58,7 +58,7 @@ class HangmanGame {
 
     // if the guessed letter is present in the word, check for a win
     // otherwise, check for player death
-    if (_wordToGuess.contains(letter)) {
+    if (wordToGuess.contains(letter)) {
       _onRight.add(letter);
 
       // if (isWordComplete) {
@@ -78,7 +78,6 @@ class HangmanGame {
     //  _onLose.add(null);
   }
 
-  List<String> get wordToGuess => _wordToGuess;
   String get fullWord => wordToGuess.join();
 
   // String get wordForDisplay => wordToGuess.map((String letter) =>
@@ -86,7 +85,7 @@ class HangmanGame {
 
   // check to see if every letter in the word has been guessed
   bool get isWordComplete {
-    for (String letter in _wordToGuess) {
+    for (String letter in wordToGuess) {
       if (!usedLetters.contains(letter)) {
         return false;
       }

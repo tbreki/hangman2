@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:js_util';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:hangman/logic.dart';
@@ -28,9 +30,9 @@ class _RunnerState extends State<Runner> {
 
   Object get usedLetters => " ";
 
-  set inputText(inputText) {
-    inputText == usedLetters;
-  }
+  String get wordToGuess => " ";
+
+  Object get letter => " ";
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +48,18 @@ class _RunnerState extends State<Runner> {
       Image.asset("images/hangman$wrongGuesses.png"),
       Container(
         child: TextFormField(
+          onChanged: (letter) {
+            if (usedLetters == letter) {
+              wordForDisplay![letter!];
+            }
+          },
           decoration: const InputDecoration(
             border: UnderlineInputBorder(),
             labelText: 'Enter Letter',
           ),
         ),
-      ),
-      // todo input keybord to input String!
+        // todo prufa nota guess letter function
+      )
     ]);
   }
 }
