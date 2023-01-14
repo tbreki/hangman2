@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'logic.dart';
-
 void main() {
   runApp(const MaterialApp(
       home: Scaffold(
@@ -18,31 +16,70 @@ class Runner extends StatefulWidget {
 }
 
 class _RunnerState extends State<Runner> {
-  String? get wordForDisplay => " ";
+  //HangmanGame game = HangmanGame();
+  List<String> wordlist = [
+    "vanilla",
+  ];
+  List usedLetters = [];
+  List wordToGuess = [];
+  List rightGuesses = [];
+  int wrongGuesses = 1;
 
-  HangmanGame game = new HangmanGame();
+  //HangmanGame(List<String> words) : wordList = new List<String>.from(words);
+  void newGame() {
+    // shuffle the word list into a random order
+    wordlist.shuffle();
+    print("shuffle");
 
-  get wrongGuesses => 1;
+    // break the first word from the shuffled list into a list of letters
+    wordToGuess = wordlist.first.split('_');
+    print("wordlist split");
 
-  Object get usedLetters => " ";
+    // reset the wrong guess count
 
-  String get wordToGuess => " ";
+    // clear the set of guessed letters
+    usedLetters.clear();
 
-  Object get letter => " ";
+    // declare the change (new word)
+    //onChange.add(wordForDisplay);
+  }
 
-  String get rightGuesses => "";
+  void guessLetter(String letter) {
+    // store guessed letter
+    //usedLetters.add(letter);
+
+    // if the guessed letter is present in the word, check for a win
+    // otherwise, check for player death
+
+    if (wordToGuess.contains(letter)) {
+      rightGuesses.add(letter);
+      // not working? rightGuesses.add(wordToGuess[letter]);
+      //todo hugsanlega finna utur hvernig setja a rettan stað [letter]
+      print("if loopa");
+    } else {
+      usedLetters.add(letter);
+
+      wrongGuesses++;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(rightGuesses,
-            style: const TextStyle(
-              fontSize: 25,
-              color: Colors.black54,
-            )),
+      ListView(
+        body: ListView.builder(
+            itemCount: rightGuesses.length,
+            itemBuilder: (BuildContext context, int letter) {
+              return Text(rightGuesses[letter]);
+            }),
+        padding: const EdgeInsets.all(50.0),
       ),
+      //(rightGuesses,
+      //style: const TextStyle(
+      //  fontSize: 25,
+      //  color: Colors.black54,
+      // )),
+      // ),
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 50,
@@ -54,7 +91,7 @@ class _RunnerState extends State<Runner> {
             // if (usedLetters == letter) {
             //   wordForDisplay![letter!];
             //   }
-            game.guessLetter(letter);
+            guessLetter(letter);
             print("input $letter");
           },
           decoration: const InputDecoration(
