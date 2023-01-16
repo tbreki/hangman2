@@ -66,24 +66,15 @@ class _RunnerState extends State<Runner> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      ListView(
-        body: ListView.builder(
-            itemCount: rightGuesses.length,
-            itemBuilder: (BuildContext context, int letter) {
-              return Text(rightGuesses[letter]);
-            }),
-        padding: const EdgeInsets.all(50.0),
-      ),
-      //(rightGuesses,
-      //style: const TextStyle(
-      //  fontSize: 25,
-      //  color: Colors.black54,
-      // )),
-      // ),
+      ListView.builder(
+          itemCount: rightGuesses.length,
+          itemBuilder: (BuildContext context, int letter) {
+            return Text(rightGuesses[letter]);
+          }),
       Image.asset(
         "images/hangman$wrongGuesses.png",
-        width: 50,
-        height: 50,
+        width: 100,
+        height: 100,
       ),
       Container(
         child: TextFormField(
