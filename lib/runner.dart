@@ -17,23 +17,22 @@ class Runner extends StatefulWidget {
 
 class _RunnerState extends State<Runner> {
   //HangmanGame game = HangmanGame();
-  List<String> wordlist = [
-    "vanilla",
-  ];
+  String wordlist = "vanilla";
+
   List usedLetters = [];
-  List wordToGuess = [];
-  List rightGuesses = [];
+  String wordToGuess = "";
+  List<String> rightGuesses = [];
   int wrongGuesses = 1;
 
   //HangmanGame(List<String> words) : wordList = new List<String>.from(words);
   void newGame() {
     // shuffle the word list into a random order
-    wordlist.shuffle();
-    print("shuffle");
-
+    //  wordlist.shuffle();
+    // print("shuffle");
+    wordlist = wordToGuess;
     // break the first word from the shuffled list into a list of letters
-    wordToGuess = wordlist.first.split('_');
-    print("wordlist split");
+    //wordToGuess = wordlist;
+    //print("wordlist split");
 
     // reset the wrong guess count
 
@@ -66,11 +65,59 @@ class _RunnerState extends State<Runner> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      ListView.builder(
-          itemCount: rightGuesses.length,
-          itemBuilder: (BuildContext context, int letter) {
-            return Text(rightGuesses[letter]);
-          }),
+      SizedBox(height: 50),
+
+      Center(
+        child: Row(
+          children: [
+            Container(
+              height: 50,
+              color: Colors.amber[600],
+              child: Center(child: Text(rightGuesses[0])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[500],
+              child: Center(child: Text(rightGuesses[1])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: Center(child: Text(rightGuesses[2])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: Center(child: Text(rightGuesses[3])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: Center(child: Text(rightGuesses[4])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: Center(child: Text(rightGuesses[5])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: Center(child: Text(rightGuesses[6])),
+            ),
+            Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: Center(child: Text(rightGuesses[7])),
+            ),
+          ],
+        ),
+      ),
+      // ListView.builder(
+      //    itemCount: rightGuesses.length,
+      //     itemBuilder: (BuildContext context, int letter) {
+      //       return Text(rightGuesses[letter]);
+      //     }),
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
@@ -79,10 +126,12 @@ class _RunnerState extends State<Runner> {
       Container(
         child: TextFormField(
           onChanged: (letter) {
+            newGame();
             // if (usedLetters == letter) {
             //   wordForDisplay![letter!];
             //   }
             guessLetter(letter);
+            setState(() {});
             print("input $letter");
           },
           decoration: const InputDecoration(
