@@ -71,8 +71,13 @@ class _RunnerState extends State<Runner> {
       SizedBox(height: 50),
 
       Center(
-        child: Row(
-          children: [
+        child: ListView.builder(
+            itemCount: rightGuesses.length,
+            itemBuilder: (ctx, index) {
+              return ListView();
+            }),
+
+        /*children: [
             Container(
               height: 50,
               color: Colors.amber[600],
@@ -114,7 +119,7 @@ class _RunnerState extends State<Runner> {
               child: Center(child: Text(rightGuesses[7])),
             ),
           ],
-        ),
+        ),*/
       ),
       // ListView.builder(
       //    itemCount: rightGuesses.length,
