@@ -17,7 +17,8 @@ class Runner extends StatefulWidget {
 
 class _RunnerState extends State<Runner> {
   //HangmanGame game = HangmanGame();
-  String wordlist = "vanilla";
+
+  List<String> wordlist = ["vanilla"];
 
   List usedLetters = [];
   String wordToGuess = "";
@@ -25,25 +26,26 @@ class _RunnerState extends State<Runner> {
   int wrongGuesses = 1;
 
   //HangmanGame(List<String> words) : wordList = new List<String>.from(words);
-  void newGame() {
+  String newGame() {
     // shuffle the word list into a random order
     //  wordlist.shuffle();
-    // print("shuffle");
-    wordlist = wordToGuess;
+    print("newgame");
+    wordlist.shuffle();
+    wordlist[0] = wordToGuess;
     // break the first word from the shuffled list into a list of letters
     //wordToGuess = wordlist;
     //print("wordlist split");
 
     // reset the wrong guess count
-
+    return wordToGuess;
     // clear the set of guessed letters
-    usedLetters.clear();
+    //usedLetters.clear();
 
     // declare the change (new word)
     //onChange.add(wordForDisplay);
   }
 
-  void guessLetter(String letter) {
+  String guessLetter(String letter) {
     // store guessed letter
     //usedLetters.add(letter);
 
@@ -60,6 +62,7 @@ class _RunnerState extends State<Runner> {
 
       wrongGuesses++;
     }
+    return letter;
   }
 
   @override
