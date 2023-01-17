@@ -45,6 +45,12 @@ class _RunnerState extends State<Runner> {
     //onChange.add(wordForDisplay);
   }
 
+  @override
+  void initState() {
+    super.initState();
+    newGame();
+  }
+
   String guessLetter(String letter) {
     // store guessed letter
     //usedLetters.add(letter);
@@ -71,13 +77,13 @@ class _RunnerState extends State<Runner> {
       SizedBox(height: 50),
 
       Center(
-        child: ListView.builder(
-            itemCount: rightGuesses.length,
-            itemBuilder: (ctx, index) {
-              return ListView();
-            }),
-
-        /*children: [
+          //child: ListView.builder(
+          //  itemCount: rightGuesses.length,
+          //  itemBuilder: (ctx, index) {
+          //   return rightGuesses;
+          //   })),
+          ),
+      /*  children: [
             Container(
               height: 50,
               color: Colors.amber[600],
@@ -120,12 +126,12 @@ class _RunnerState extends State<Runner> {
             ),
           ],
         ),*/
-      ),
+
       // ListView.builder(
       //    itemCount: rightGuesses.length,
       //     itemBuilder: (BuildContext context, int letter) {
       //       return Text(rightGuesses[letter]);
-      //     }),
+      //     }),*/
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
@@ -134,7 +140,6 @@ class _RunnerState extends State<Runner> {
       Container(
         child: TextFormField(
           onChanged: (letter) {
-            newGame();
             // if (usedLetters == letter) {
             //   wordForDisplay![letter!];
             //   }
