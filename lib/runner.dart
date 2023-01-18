@@ -23,6 +23,7 @@ class _RunnerState extends State<Runner> {
   List usedLetters = [];
   String wordToGuess = "";
   List<String> rightGuesses = [];
+  List<String> gameBoard = [];
   int wrongGuesses = 1;
 
   //HangmanGame(List<String> words) : wordList = new List<String>.from(words);
@@ -45,10 +46,24 @@ class _RunnerState extends State<Runner> {
     //onChange.add(wordForDisplay);
   }
 
+  void createGameBoard() {
+    for (int i = 0; i < wordToGuess.length; i++) {
+      if (rightGuesses.contains(wordToGuess[i])) {
+        gameBoard.add(Text(wordToGuess[i]));
+      } else {
+        gameBoard.add(Text("_"));
+      }
+    }
+    setState(() {
+      this.gameBoard = gameBoard;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     newGame();
+    createGameBoard();
   }
 
   String guessLetter(String letter) {
@@ -60,12 +75,8 @@ class _RunnerState extends State<Runner> {
 
     if (wordToGuess.contains(letter)) {
       rightGuesses.add(letter);
-      // not working? rightGuesses.add(wordToGuess[letter]);
-      //todo hugsanlega finna utur hvernig setja a rettan stað [letter]
-      print("if loopa");
+      createGameBoard();
     } else {
-      usedLetters.add(letter);
-
       wrongGuesses++;
     }
     return letter;
@@ -73,65 +84,16 @@ class _RunnerState extends State<Runner> {
 
   @override
   Widget build(BuildContext context) {
+    createGameBoard();
     return Column(children: [
       SizedBox(height: 50),
-
-      Center(
-          //child: ListView.builder(
-          //  itemCount: rightGuesses.length,
-          //  itemBuilder: (ctx, index) {
-          //   return rightGuesses;
-          //   })),
-          ),
-      /*  children: [
-            Container(
-              height: 50,
-              color: Colors.amber[600],
-              child: Center(child: Text(rightGuesses[0])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[500],
-              child: Center(child: Text(rightGuesses[1])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: Center(child: Text(rightGuesses[2])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: Center(child: Text(rightGuesses[3])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: Center(child: Text(rightGuesses[4])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: Center(child: Text(rightGuesses[5])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: Center(child: Text(rightGuesses[6])),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: Center(child: Text(rightGuesses[7])),
-            ),
-          ],
-        ),*/
-
-      // ListView.builder(
-      //    itemCount: rightGuesses.length,
-      //     itemBuilder: (BuildContext context, int letter) {
-      //       return Text(rightGuesses[letter]);
-      //     }),*/
+      ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+        Container(
+          height: 50,
+          color: Colors.amber[600],
+          child: const Center(child: Text('Entry A')),
+        )
+      ]),
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
