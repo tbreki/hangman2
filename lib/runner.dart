@@ -8,6 +8,37 @@ void main() {
   )));
 }
 
+// Define a custom Form widget.
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  State<MyCustomForm> createState() => _MyCustomFormState();
+}
+
+// Define a corresponding State class.
+// This class holds the data related to the Form.
+class _MyCustomFormState extends State<MyCustomForm> {
+  // Create a text controller and use it to retrieve the current value
+  // of the TextField.
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Fill this out in the next step.
+    return TextField(
+      controller: myController,
+    );
+  }
+}
+
 class Runner extends StatefulWidget {
   const Runner({Key? key}) : super(key: key);
 
@@ -24,6 +55,7 @@ class _RunnerState extends State<Runner> {
   String wordToGuess = "";
   List<String> rightGuesses = [];
   List<String> gameBoard = [];
+
   int wrongGuesses = 1;
 
   //HangmanGame(List<String> words) : wordList = new List<String>.from(words);
@@ -46,17 +78,20 @@ class _RunnerState extends State<Runner> {
     //onChange.add(wordForDisplay);
   }
 
-  void createGameBoard() {
+  List<String> createGameBoard() {
     for (int i = 0; i < wordToGuess.length; i++) {
       if (rightGuesses.contains(wordToGuess[i])) {
-        gameBoard.add(Text(wordToGuess[i]));
+        gameBoard.add(wordToGuess[i]);
       } else {
-        gameBoard.add(Text("_"));
+        gameBoard.add("_");
       }
     }
+    print("create gameboard");
     setState(() {
       this.gameBoard = gameBoard;
     });
+    return gameBoard;
+    ;
   }
 
   @override
@@ -72,7 +107,7 @@ class _RunnerState extends State<Runner> {
 
     // if the guessed letter is present in the word, check for a win
     // otherwise, check for player death
-
+    print("guess letter");
     if (wordToGuess.contains(letter)) {
       rightGuesses.add(letter);
       createGameBoard();
@@ -87,13 +122,16 @@ class _RunnerState extends State<Runner> {
     createGameBoard();
     return Column(children: [
       SizedBox(height: 50),
-      ListView(padding: const EdgeInsets.all(8), children: <Widget>[
-        Container(
-          height: 50,
-          color: Colors.amber[600],
-          child: const Center(child: Text('Entry A')),
-        )
-      ]),
+      ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(8),
+          children: <Widget>[
+            Container(
+              height: 50,
+              color: Colors.amber[600],
+              child: Center(child: Text(gameBoard.toString())),
+            )
+          ]),
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
@@ -101,23 +139,30 @@ class _RunnerState extends State<Runner> {
       ),
       Container(
         child: TextFormField(
-          onChanged: (letter) {
-            // if (usedLetters == letter) {
-            //   wordForDisplay![letter!];
-            //   }
-            guessLetter(letter);
-            setState(() {});
-            print("input $letter");
+          // gera controler
+
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                var myController;
+                return AlertDialog(
+                  // Retrieve the text that the user has entered by using the
+                  // TextEditingController.
+                  content: Text(myController.text),
+                );
+              },
+            );
           },
-          decoration: const InputDecoration(
-            border: UnderlineInputBorder(),
-            labelText: 'Enter Letter',
-          ),
+          /* onChanged: (letter) {
+            print("guess letter 2");
+            guessLetter(letter);
+
+            setState(() {});
+            createGameBoard();
+            print("input $letter");
+          },*/
         ),
-        // setja word for display i lista break up
-        //hvert gisk er er strengur inni lista
-        // ef guess letter.lenght = hanged .. hanged
-        // todo prufa nota guess letter function
       ),
     ]);
     //todo row með wrong guesses
