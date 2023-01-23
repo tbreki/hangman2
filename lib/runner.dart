@@ -8,37 +8,6 @@ void main() {
   )));
 }
 
-// Define a custom Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
-
-  @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
-}
-
-// Define a corresponding State class.
-// This class holds the data related to the Form.
-class _MyCustomFormState extends State<MyCustomForm> {
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
-  final myController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // Fill this out in the next step.
-    return TextField(
-      controller: myController,
-    );
-  }
-}
-
 class Runner extends StatefulWidget {
   const Runner({Key? key}) : super(key: key);
 
@@ -78,9 +47,10 @@ class _RunnerState extends State<Runner> {
     //onChange.add(wordForDisplay);
   }
 
-  List<String> createGameBoard() {
+  void createGameBoard() {
+    gameBoard.clear();
     for (int i = 0; i < wordToGuess.length; i++) {
-      if (rightGuesses.contains(wordToGuess[i])) {
+      if (wordToGuess.contains(rightGuesses[i])) {
         gameBoard.add(wordToGuess[i]);
       } else {
         gameBoard.add("_");
@@ -90,8 +60,6 @@ class _RunnerState extends State<Runner> {
     setState(() {
       this.gameBoard = gameBoard;
     });
-    return gameBoard;
-    ;
   }
 
   @override
@@ -119,51 +87,43 @@ class _RunnerState extends State<Runner> {
 
   @override
   Widget build(BuildContext context) {
-    createGameBoard();
-    return Column(children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       SizedBox(height: 50),
-      ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            Container(
-              height: 50,
-              color: Colors.amber[600],
-              child: Center(child: Text(gameBoard.toString())),
-            )
-          ]),
+      SizedBox(
+        height: 25,
+        width: 25,
+        child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+              ListView.builder(
+                itemCount: gameBoard.length,
+                itemBuilder: (context, index) {
+                  return Text(gameBoard[index]);
+                },
+              ),
+            ]),
+      ),
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
         height: 100,
       ),
       Container(
-        child: TextFormField(
-          // gera controler
-
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                var myController;
-                return AlertDialog(
-                  // Retrieve the text that the user has entered by using the
-                  // TextEditingController.
-                  content: Text(myController.text),
-                );
-              },
-            );
-          },
-          /* onChanged: (letter) {
-            print("guess letter 2");
+        child: TextField(
+          onChanged: (String letter) {
             guessLetter(letter);
-
-            setState(() {});
-            createGameBoard();
-            print("input $letter");
-          },*/
+          },
         ),
+
+        //setState(() {});
+        //createGameBoard();
+        // print("input $value");
       ),
+      Container(
+          // child: FloatingActionButton(
+
+          ),
     ]);
     //todo row með wrong guesses
   }
