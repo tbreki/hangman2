@@ -88,7 +88,6 @@ class _RunnerState extends State<Runner> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      SizedBox(height: 50),
       SizedBox(
         height: 25,
         width: 25,
