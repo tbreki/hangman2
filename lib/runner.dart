@@ -16,7 +16,7 @@ class Runner extends StatefulWidget {
 }
 
 class _RunnerState extends State<Runner> {
-  //HangmanGame game = HangmanGame();
+// word listi og listar fyrir function
 
   List<String> wordlist = ["vanilla"];
 
@@ -24,29 +24,19 @@ class _RunnerState extends State<Runner> {
   String wordToGuess = "";
   List<String> rightGuesses = [];
   List<String> gameBoard = [];
-
+// telur r0ng svor
   int wrongGuesses = 1;
 
-  //HangmanGame(List<String> words) : wordList = new List<String>.from(words);
+  // nýr leikur, shufflar lista og tekur fyrsta orð út lista.
   String newGame() {
-    // shuffle the word list into a random order
-    //  wordlist.shuffle();
     print("newgame");
     wordlist.shuffle();
     wordlist[0] = wordToGuess;
-    // break the first word from the shuffled list into a list of letters
-    //wordToGuess = wordlist;
-    //print("wordlist split");
 
-    // reset the wrong guess count
     return wordToGuess;
-    // clear the set of guessed letters
-    //usedLetters.clear();
-
-    // declare the change (new word)
-    //onChange.add(wordForDisplay);
   }
 
+// function til að sýna rétt gisk úr orði, disiplayað fyrir ofan mynd.
   void createGameBoard() {
     gameBoard.clear();
     for (int i = 0; i < wordToGuess.length; i++) {
@@ -68,13 +58,10 @@ class _RunnerState extends State<Runner> {
     newGame();
     createGameBoard();
   }
+// function til að giska á réttan staf úr orði, bæta við ef er rétt,
+  //annars bæta við röng svör
 
   String guessLetter(String letter) {
-    // store guessed letter
-    //usedLetters.add(letter);
-
-    // if the guessed letter is present in the word, check for a win
-    // otherwise, check for player death
     print("guess letter");
     if (wordToGuess.contains(letter)) {
       rightGuesses.add(letter);
@@ -85,12 +72,15 @@ class _RunnerState extends State<Runner> {
     return letter;
   }
 
+// kemur error á list view, veit ekki afhv
+  // virkar með venjulegu text en það vill ekki sýna lista
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+    return Column(children: [
+      //gameBoard
       SizedBox(
-        height: 25,
-        width: 25,
+        width: 10,
+        height: 10,
         child: ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.all(8),
@@ -103,27 +93,20 @@ class _RunnerState extends State<Runner> {
               ),
             ]),
       ),
+      //hangedMan
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
         height: 100,
       ),
+      //text input
       Container(
         child: TextField(
           onChanged: (String letter) {
             guessLetter(letter);
           },
         ),
-
-        //setState(() {});
-        //createGameBoard();
-        // print("input $value");
       ),
-      Container(
-          // child: FloatingActionButton(
-
-          ),
     ]);
-    //todo row með wrong guesses
   }
 }
