@@ -38,7 +38,6 @@ class _RunnerState extends State<Runner> {
 
 // function til að sýna rétt gisk úr orði, disiplayað fyrir ofan mynd.
   createGameBoard() {
-    gameBoard.add(wordToGuess[0]);
     for (int i = 0; i < wordToGuess.length; i++) {
       if (wordToGuess.contains(rightGuesses[i])) {
         gameBoard.add(wordToGuess[i]);
@@ -77,11 +76,14 @@ class _RunnerState extends State<Runner> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      SizedBox(
+        height: 30,
+      ),
       //gameBoard
       Container(
-        width: 10,
-        height: 10,
-        child: Text(gameBoard
+        width: 25,
+        height: 25,
+        child: Text(rightGuesses
             .toString()), /*ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.all(8),
