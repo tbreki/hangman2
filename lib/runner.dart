@@ -21,27 +21,30 @@ class _RunnerState extends State<Runner> {
   List<String> wordlist = ["vanilla"];
 
   List usedLetters = [];
-  String wordToGuess = "";
+  String wordToGuess = "vanilla";
   List<String> rightGuesses = [];
   List<String> gameBoard = [];
 // telur r0ng svor
   int wrongGuesses = 1;
 
   // nýr leikur, shufflar lista og tekur fyrsta orð út lista.
-  String newGame() {
+  newGame() {
     print("newgame");
-    wordlist.shuffle();
-    wordlist[0] = wordToGuess;
+    // wordlist.shuffle();
+    // wordlist.first = wordToGuess;
 
-    return wordToGuess;
+    print(wordToGuess);
+
+    // return wordToGuess;
   }
 
 // function til að sýna rétt gisk úr orði, disiplayað fyrir ofan mynd.
   createGameBoard() {
     for (int i = 0; i < wordToGuess.length; i++) {
       if (wordToGuess.contains(rightGuesses[i])) {
-        gameBoard.add(wordToGuess[i]);
+        gameBoard.add(rightGuesses[i]);
       } else {
+        gameBoard.add(wordToGuess[0]);
         gameBoard.add("_");
       }
     }
@@ -68,6 +71,7 @@ class _RunnerState extends State<Runner> {
     } else {
       wrongGuesses++;
     }
+    print(wordToGuess);
     return letter;
   }
 
@@ -83,7 +87,7 @@ class _RunnerState extends State<Runner> {
       Container(
         width: 25,
         height: 25,
-        child: Text(rightGuesses
+        child: Text(gameBoard
             .toString()), /*ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.all(8),
@@ -107,6 +111,7 @@ class _RunnerState extends State<Runner> {
         child: TextField(
           onChanged: (String letter) {
             guessLetter(letter);
+            createGameBoard();
           },
         ),
       ),
