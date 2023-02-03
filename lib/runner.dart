@@ -16,14 +16,10 @@ class Runner extends StatefulWidget {
 }
 
 class _RunnerState extends State<Runner> {
-// word listi og listar fyrir function
   String Result = "_______";
   List<String> rightGuesses = [];
 
-  List<String> wordlist = ["vanilla"];
-
   String wordToGuess = "vanilla";
-  //List<String> inputs = [];
 
 // telur r0ng svor
   int wrongGuesses = 1;
@@ -33,8 +29,7 @@ class _RunnerState extends State<Runner> {
 // nýr leikur, shufflar lista og tekur fyrsta orð út lista.
   newGame() {
     print("newgame");
-// wordlist.shuffle();
-// wordlist.first = wordToGuess;
+    wrongGuesses = 1;
 
     print(wordToGuess);
 
@@ -55,9 +50,13 @@ class _RunnerState extends State<Runner> {
       rightGuesses.add(letter);
       Temp(letter);
     } else {
-      wrongGuesses++;
+      if (wrongGuesses <= 8) {
+        wrongGuesses++ - 2;
+      }
     }
+
     print(wordToGuess);
+    print(wrongGuesses);
 
     return letter;
   }
