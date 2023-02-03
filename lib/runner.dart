@@ -15,17 +15,16 @@ class Runner extends StatefulWidget {
   State<Runner> createState() => _RunnerState();
 }
 
-String Result = "_______";
-
 class _RunnerState extends State<Runner> {
 // word listi og listar fyrir function
+  String Result = "_______";
+  List<String> rightGuesses = [];
 
   List<String> wordlist = ["vanilla"];
 
-  List usedLetters = [];
   String wordToGuess = "vanilla";
-  List<String> rightGuesses = [];
-  List<String> gameBoard = [];
+  //List<String> inputs = [];
+
 // telur r0ng svor
   int wrongGuesses = 1;
 
@@ -59,31 +58,31 @@ class _RunnerState extends State<Runner> {
       wrongGuesses++;
     }
     print(wordToGuess);
+
     return letter;
   }
 
   void Temp(String letter) {
-    print("temp");
+    print("Temp");
     List<String> correctLetters = wordToGuess.split("");
+
     for (int i = 0; i <= correctLetters.length - 1; i++) {
       if (letter == correctLetters[i]) {
         print(correctLetters[i]);
         Result = Result.replaceRange(i, i + 1, letter);
-        String newResult =
-            Result.substring(0, i) + letter + Result.substring(i + 1);
-        Result = newResult;
       }
     }
     print(Result);
+    print(rightGuesses);
   }
 
-  List<String> inputs = [];
-
-  daInput(String letter) {
-    setState(() {
-      inputs.add(letter);
+  void input(String letter) {
+    List<String> lettersList = letter.split("");
+    for (String letter in lettersList) {
       Temp(letter);
-    });
+      guessLetter(letter);
+    }
+    lettersList.clear();
   }
 
   @override
@@ -108,9 +107,11 @@ class _RunnerState extends State<Runner> {
       Container(
         child: TextField(
           onChanged: (String letter) {
-            daInput(letter);
-            //guessLetter(letter);
-            setState(() {});
+            setState(() {
+              input(letter);
+              Temp(letter);
+              guessLetter(letter);
+            });
 
             //Temp(letter);
             // setState(() {
