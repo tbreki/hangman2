@@ -15,6 +15,8 @@ class Runner extends StatefulWidget {
   State<Runner> createState() => _RunnerState();
 }
 
+String Result = "_______";
+
 class _RunnerState extends State<Runner> {
 // word listi og listar fyrir function
 
@@ -27,47 +29,32 @@ class _RunnerState extends State<Runner> {
 // telur r0ng svor
   int wrongGuesses = 1;
 
-  // nýr leikur, shufflar lista og tekur fyrsta orð út lista.
+  String get letter => "";
+
+// nýr leikur, shufflar lista og tekur fyrsta orð út lista.
   newGame() {
     print("newgame");
-    // wordlist.shuffle();
-    // wordlist.first = wordToGuess;
+// wordlist.shuffle();
+// wordlist.first = wordToGuess;
 
     print(wordToGuess);
 
-    // return wordToGuess;
-  }
-
-// function til að sýna rétt gisk úr orði, disiplayað fyrir ofan mynd.
-  createGameBoard() {
-    for (int i = 0; i < wordToGuess.length; i++) {
-      if (wordToGuess.contains(rightGuesses[i])) {
-        gameBoard.add(rightGuesses[i]);
-      } else {
-        gameBoard.add(wordToGuess[0]);
-        gameBoard.add("_");
-      }
-    }
-    print("create gameboard");
-    setState(() {
-      this.gameBoard = gameBoard;
-    });
+// return wordToGuess;
   }
 
   @override
   void initState() {
     super.initState();
     newGame();
-    createGameBoard();
   }
-// function til að giska á réttan staf úr orði, bæta við ef er rétt,
-  //annars bæta við röng svör
 
+// function til að giska á réttan staf úr orði, bæta við ef er rétt,
+// annars bæta við röng svör
   String guessLetter(String letter) {
     print("guess letter");
     if (wordToGuess.contains(letter)) {
       rightGuesses.add(letter);
-      createGameBoard();
+      Temp(letter);
     } else {
       wrongGuesses++;
     }
@@ -75,43 +62,61 @@ class _RunnerState extends State<Runner> {
     return letter;
   }
 
-// kemur error á list view, veit ekki afhv
-  // virkar með venjulegu text en það vill ekki sýna lista
+  void Temp(String letter) {
+    print("temp");
+    List<String> correctLetters = wordToGuess.split("");
+    for (int i = 0; i <= correctLetters.length - 1; i++) {
+      if (letter == correctLetters[i]) {
+        print(correctLetters[i]);
+        Result = Result.replaceRange(i, i + 1, letter);
+        String newResult =
+            Result.substring(0, i) + letter + Result.substring(i + 1);
+        Result = newResult;
+      }
+    }
+    print(Result);
+  }
+
+  List<String> inputs = [];
+
+  daInput(String letter) {
+    setState(() {
+      inputs.add(letter);
+      Temp(letter);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       SizedBox(
         height: 30,
       ),
-      //gameBoard
-      Container(
-        width: 25,
-        height: 25,
-        child: Text(gameBoard
-            .toString()), /*ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(8),
-            children: <Widget>[
-              ListView.builder(
-                itemCount: gameBoard.length,
-                itemBuilder: (context, index) {
-                  return Text(gameBoard[index]);
-                },
-              ),
-            ]),*/
+//gameBoard
+      Center(
+        child: Text(
+          Result,
+        ),
       ),
-      //hangedMan
+//hangedMan
       Image.asset(
         "images/hangman$wrongGuesses.png",
         width: 100,
         height: 100,
       ),
-      //text input
+//text input
       Container(
         child: TextField(
           onChanged: (String letter) {
-            guessLetter(letter);
-            createGameBoard();
+            daInput(letter);
+            //guessLetter(letter);
+            setState(() {});
+
+            //Temp(letter);
+            // setState(() {
+            //   guessLetter(letter);
+            //  });
+            //   setState(() {});
           },
         ),
       ),
